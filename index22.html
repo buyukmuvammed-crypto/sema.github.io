@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anılarımız ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 50%, #fecfef 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            color: rgba(255, 182, 193, 0.7);
+            font-size: 20px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+            10%, 90% { opacity: 1; }
+            50% { transform: translateY(-100px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 3em;
+            color: #d63384;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .header p {
+            font-size: 1.3em;
+            color: #6c757d;
+            font-style: italic;
+        }
+
+        .memory-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            color: #d63384;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .photo-item {
+            position: relative;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .photo-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(45deg, #ffeaa7, #fab1a0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            color: #2d3436;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .photo-caption {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .photo-caption h3 {
+            color: #d63384;
+            margin-bottom: 8px;
+            font-size: 1.3em;
+        }
+
+        .photo-caption p {
+            color: #6c757d;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .video-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .video-item {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+
+        .video-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 600px;
+            background: linear-gradient(45deg, #a29bfe, #fd79a8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3em;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .video-placeholder:hover {
+            background: linear-gradient(45deg, #6c5ce7, #e84393);
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background: linear-gradient(to bottom, #d63384, #fd79a8);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            border-radius: 2px;
+        }
+
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            margin-bottom: 30px;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            background: #d63384;
+            border: 4px solid #fff;
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+            box-shadow: 0 0 10px rgba(214, 51, 132, 0.5);
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        .timeline-content {
+            padding: 20px 30px;
+            background: rgba(255, 255, 255, 0.95);
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .timeline-content h3 {
+            color: #d63384;
+            margin-bottom: 10px;
+            font-size: 1.4em;
+        }
+
+        .timeline-content p {
+            color: #6c757d;
+            line-height: 1.6;
+        }
+
+        .timeline-content .date {
+            color: #fd79a8;
+            font-weight: bold;
+            font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .love-message {
+            text-align: center;
+            padding: 50px 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            margin-top: 50px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .love-message h2 {
+            color: #d63384;
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .love-message p {
+            font-size: 1.3em;
+            color: #6c757d;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+            font-style: italic;
+        }
+
+        /* YouTube Müzik Oynatıcısı */
+        .youtube-player {
+            position: fixed;
+            bottom: -300px;
+            right: 10px;
+            width: 350px;
+            height: 250px;
+            z-index: 999;
+            transition: bottom 0.5s ease;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            
+        }
+
+        .youtube-player.show {
+            bottom: 100px;
+        }
+
+        .music-player {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .music-btn {
+            background: linear-gradient(45deg, #d63384, #fd79a8);
+            border: none;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: transform 0.3s ease;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .letter-button {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, #d63384, #fd79a8);
+            border: none;
+            color: white;
+            padding: 15px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            box-shadow: 0 5px 20px rgba(214, 51, 132, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .letter-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.6);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .letter-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+        }
+
+        .letter-content {
+            background: #fff;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: scale(0.7) rotateY(-90deg);
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+
+        .letter-content.show {
+            transform: scale(1) rotateY(0deg);
+        }
+
+        .letter-header {
+            background: linear-gradient(135deg, #d63384, #fd79a8);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(255,255,255,0.1) 10px,
+                rgba(255,255,255,0.1) 20px
+            );
+            animation: shimmer 3s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%); }
+            100% { transform: translateX(100%) translateY(100%); }
+        }
+
+        .letter-header h2 {
+            font-size: 2em;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-header p {
+            margin: 10px 0 0 0;
+            font-style: italic;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-body {
+            padding: 40px;
+            font-family: 'Georgia', serif;
+            line-height: 1.8;
+            color: #333;
+            background: linear-gradient(135deg, #fff 0%, #fef7f7 100%);
+        }
+
+        .letter-body p {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            text-align: justify;
+        }
+
+        .letter-signature {
+            text-align: right;
+            margin-top: 30px;
+            font-style: italic;
+            color: #d63384;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .close-letter {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 2;
+        }
+
+        .close-letter:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+
+        .letter-decorations {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .letter-heart {
+            position: absolute;
+            color: rgba(214, 51, 132, 0.1);
+            font-size: 30px;
+            animation: float-heart 4s ease-in-out infinite;
+        }
+
+        @keyframes float-heart {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(5deg); }
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            
+            .header p {
+                font-size: 1.1em;
+            }
+            
+            .timeline::after {
+                left: 20px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 50px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 10px;
+            }
+            
+            .timeline-item:nth-child(even) {
+                left: 0%;
+            }
+            
+            .video-section {
+                grid-template-columns: 1fr;
+            }
+
+            .youtube-player {
+                width: 300px;
+                height: 200px;
+            }
+        }
+
+        .sparkle {
+            position: absolute;
+            pointer-events: none;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="floating-hearts" id="floatingHearts"></div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>İyiki Doğdun Sevgilim❤️</h1>
+            <p>"Tesadüf seni önüme çıkarmasaydı, gene aynı şekilde, fakat her şeyden habersiz, yaşayıp gidecektim. Sen bana dünyada başka bir hayatın da mevcut olduğunu, benim bir de ruhum bulunduğunu öğrettin."</p>
+        </div>
+
+        <div class="memory-section">
+            <h2 class="section-title"></h2>
+            <div class="photo-gallery">
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        
+                    <img src="ilk.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>İlk Buluşmamız</h3>
+                        <p>Seni ilkgördüğüm o müthiş ve eşsiz yer...</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        
+                    <img src="1.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>İlk fotoğrafımız</h3>
+                       
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                       <img src="19.jpeg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>İlk Çiçeğimiz</h3>
+                        <p>Sen bütün çiçekelerden daha güzel olduğun için aynı gün çiçeği soldurdun</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                       <img src="17.jpeg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Bıdıklarımız</h3>
+                        <p>Seni bu kadar seviyorummm</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="4.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>İlk Sürpriz Yumurtamız</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                       <img src="25.jpeg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>PİTİKOLU SÜT</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="26.jpeg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Ayıcığımızzz</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="27.jpeg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>İlk Akşam Yemeğimiz</h3>
+                        <p>Afied</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                       <img src="28.jpeg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Sen hep böyle gül</h3>
+                       
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="15.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>İlk Müze Gezimiz</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="2.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>İlk Lunaparkımız</h3>
+                        <p>Hep içimdeki çocuk olduğun için teşekkür ederim...</p>
+                    </div>
+                </div>
+
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="8.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Şaşkın Kedi</h3>
+                        <p>Seni her gördüğümde bu kedi gibi oluyorum</p>
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="9.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Güneşim</h3>
+                       
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="10.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Mutluluğumm</h3>
+                       
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="7.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Güzelim</h3>
+                      
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="11.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Güzelim</h3>
+                        
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="12.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Oyun Salonu</h3>
+                        <p>İçimdeki çocuk olduğun için teşekkür ederim</p>
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="14.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Puzzle</h3>
+                        
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="30.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Peluşlar</h3>
+                        <p>Dünyadaki her şeyden daha tatlısın</p>
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="3.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Atam</h3>
+                        <p>Bir söz daha yerine getirilmiştir.</p>
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="19.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Aspava</h3>
+                        <p>Afied</p>
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="41.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Ankara Lunapark</h3>
+                        
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="42.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Huzurumm</h3>
+                       
+                    </div>
+                </div>
+                <div class="photo-item" onclick="addSparkles(event)">
+                    <div class="photo-placeholder">
+                        <img src="43.jpg" alt="İlk Buluşmamız" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+                    </div>
+                    <div class="photo-caption">
+                        <h3>Güzelim</h3>
+                        <p>Seni çoooookkk seviyorummm...</p>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="memory-section">
+            <h2 class="section-title">🎥 Videolarımız</h2>
+            <div class="video-section">
+                <div class="video-item">
+                    <div class="video-item">
+                        <div class="video-placeholder" style="padding: 0;">
+                         <video controls style="width: 100%; height: 100%; object-fit: cover;">
+                          <source src="1.mp4" type="video/mp4">
+                              Tarayıcınız video etiketini desteklemiyor.
+                            </video>
+                </div>
+                    <div class="photo-caption">
+                        <h3>İyiki DOğmuşsun Huzurumm</h3>
+                        <p>Seni her şeyden çok seviyorumm...</p>
+                    </div>
+                </div>
+                
+
+                <div class="video-item">
+                    <div class="video-placeholder" style="padding: 0;">
+        <video controls style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="9.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+                    <div class="photo-caption">
+                        <h3>Bıdıklarr</h3>
+                        
+                    </div>
+                </div>
+
+                <div class="video-item">
+                    <div class="video-placeholder" style="padding: 0;">
+        <video controls style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="4.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+                    <div class="photo-caption">
+                        <h3>Bebiş parkta</h3>
+                        <p>Dİçimdeki çocuğu hep canlı tuttuğun için teşekkür ederim</p>
+                    </div>
+                </div>
+
+                <div class="video-item">
+                    <div class="video-placeholder" style="padding: 0;">
+        <video controls style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="3.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+    
+                    <div class="photo-caption">
+                        <h3>Aspava</h3>
+                        <p>Afieddd</p>
+                    </div>
+                </div>
+            </div>
+            <div class="video-section">
+                <div class="video-item">
+                    <div class="video-item">
+                        <div class="video-placeholder" style="padding: 0;">
+                         <video controls style="width: 100%; height: 100%; object-fit: cover;">
+                          <source src="5.mp4" type="video/mp4">
+                              Tarayıcınız video etiketini desteklemiyor.
+                            </video>
+                         </div>
+                </div>
+                    <div class="photo-caption">
+                        <h3>Sema Hanım Sinirli</h3>
+                        
+                    </div>
+                </div>
+                
+
+                <div class="video-item">
+                    <div class="video-placeholder" style="padding: 0;">
+        <video controls style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="6.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+                    <div class="photo-caption">
+                        <h3>Yıldız Ciğer</h3>
+                        <p>Afieddd</p>
+                    </div>
+                </div>
+
+                <div class="video-item">
+                    <div class="video-placeholder" style="padding: 0;">
+        <video controls style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="7.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+                    <div class="photo-caption">
+                        <h3>Langırtt</h3>
+                      
+                    </div>
+                </div>
+
+                <div class="video-item">
+                    <div class="video-placeholder" style="padding: 0;">
+        <video controls style="width: 100%; height: 100%; object-fit: cover;">
+            <source src="8.mp4" type="video/mp4">
+            Tarayıcınız video etiketini desteklemiyor.
+        </video>
+    </div>
+    
+                    <div class="photo-caption">
+                        <h3>Puzzle Yapmaca</h3>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="memory-section">
+            <h2 class="section-title">Zaman Yolculuğu</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>İlk Karşılaşma</h3>
+                        <p>Meğerki ben o güne kadar hiç nefes almamışım, hiç mutlu olmamışım, yaşamak kelimesiyle uzaktan yakından alakam olmamış. Fotoğrafını ilk gördüğüm o an, hem büyük bir mutluluk hemde büyük bir hüzün kapladı içimi. O güne kadar hayatımı boşa yaşamış gibi hissettim. </p>
+                        <div class="date">📅 1 Mart 2023</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>İlk Konuşmamız</h3>
+                        <p>Utangaç , tatlı , huzur veren sesin hala kulaklarımda.Saatlerce konuşştuk , o gün sabah olmasın istemiştim, bitmesin, ilk kez bir günün tükenmesini istememiştim.</p>
+                        <div class="date">📅 Mart 2023</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>İlk Şiir"</h3>
+                        <p>
+                            Gece midir insanı hüzünlendiren, yoksa insan mıdır hüzünlenmek için geceyi bekleyen?
+Gece midir seni bana düşündüren, yoksa ben miyim, seni düşünmek için geceyi bekleyen?
+</p>
+                        <div class="date">📅 27 Mart 2023</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>İlk "Seni Seviyorum"</h3>
+                        <p>Hayatımda ilk kez ramazanda kar gördüm, SEN ilk kez seni seviyorum dedin. Martın hiç bu kadar güzel olabileceğini düşünmemiştim</p>
+                        <div class="date">📅 29 Mart 2023</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Telefon </h3>
+                        <p>Aylarca unuttum diye kendimi kandırmışım, telefon çaldığında koltuktan sıçrayışımı bir ben bilirim birde kalbim, gene sabaha kadar konuştuk, seni öyle özlemişim öyle özlemişim ki , diğer gün gene karnıma kramplar girdi, ilk gün gibi. Sensiz çok eksikmişim sevgilim.</p>
+                        <div class="date">📅 16 Ekım 2024</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>İlk buluşmamız</h3>
+                        <p>Seni ilk gördüğüm o bina , kar tipisi, senin yanında ellerin elimde gittiğimiz yerler, gözlerine vuran güneş, bedenimi ısıtan gülüşlerin, sanki hepsi birer rüyaydı , hepsi birer roman parçasıydı. Gerçek olamayacak kadar eşsizdi.  </p>
+                        <div class="date">📅 6 Şubat 2025</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>İlk beraber farklı şehrimiz</h3>
+                        <p>Gezeceğimiz şehirlerden ilki Ankara oldu, biraz eksikti ama işin içinde sen olduğundan her şeyim tam</p>
+                        <div class="date">📅 4 Temmuz 2025</div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>İlk Beraber Seyahatimiz</h3>
+                        <p>İlk beraber yolculuğumuz, güneşin güzel yüzüne çarpışı ve senin kollarında uyanışım. Bugüne kadar hiç uyku uyumamışım. </p>
+                        <div class="date">📅 11 Temmuz 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="love-message">
+            <h2>💕 İyi ki varsın, iyi ki doğmuşsun, iyi ki benimsin Semanurum❤️</h2>
+            <p>
+                ~Mühendisin Sefer
+            </p>
+        </div>
+    </div>
+
+    <!-- YouTube Müzik Oynatıcısı -->
+    <div class="youtube-player" id="youtubePlayer" >
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/OuHfKKvh_QY?si=xclPslNkHqgJRUwg?enablejsapi=1&autoplay=1&loop=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+    
+
+    <button class="letter-button" onclick="openLetter()" title="Sana yazdığım mektup">
+        💌
+    </button>
+
+    <div class="music-player">
+        <button class="music-btn" onclick="toggleMusic()">🎵 Müzik</button>
+    </div>
+
+    <!-- Mektup Modal -->
+    <div class="letter-modal" id="letterModal" onclick="closeLetter(event)">
+        <div class="letter-content" id="letterContent" onclick="event.stopPropagation()">
+            <div class="letter-decorations">
+                <div class="letter-heart" style="top: 10%; left: 5%;">💕</div>
+                <div class="letter-heart" style="top: 20%; right: 5%; animation-delay: 1s;">❤️</div>
+                <div class="letter-heart" style="bottom: 15%; left: 10%; animation-delay: 2s;">💖</div>
+                <div class="letter-heart" style="bottom: 25%; right: 8%; animation-delay: 0.5s;">🌹</div>
+            </div>
+            
+            <div class="letter-header">
+                <button class="close-letter" onclick="closeLetter()">&times;</button>
+                <h2>Semanur Saraç'a </h2>
+                
+            </div>
+            
+            <div class="letter-body">
+                <p>Sevgilim Sema,</p>
+                <p>Bütün hafta, bir doğum gününü daha yanında geçiremeyecek olmanın verdiği huzursuzlukla seni düşündüm. Ayrılığa er geç alışılır derler ama ben gün geçtikçe seni daha fazla arıyorum, benim sensizliğe dayanacak bir günüm daha yok. Çünkü ben sensizliğin ne demek olduğunu bilirim sevgilim.</p>
+                <p>Biliyor musun bu mektubu yazarken seni gördüğüm sana bağlandığım Mart sabahlarını düşünerekten yazıyorum. Her an her saniye o kadar özelki sen bana her "seni seviyorum" dediğinde 61.saniyede oluyordum  </p>
+                <p>Ne çabuk geçti 2 yıl değil mi? sanki dün gibi insan sevdiğinin yanında mutlu olunca hayat kısalıyor sanki. Bana ilk seni seviyorum demen ,okuduğun ilk şiir , söylediğin ilk şarkı, tatlı sesini ilk duymam,ilk izlediğimiz film , ilk hediyen heyecandan sabahlara kadar tavanı seyretmem.</p>
+                <p>Sema keşke bunları yazmak yrine gözlerinin içine bakarak söyleyebilseydim. Ellerini tutabilseydim ama şimdilik kelimelere sığınıyorum.Sana dair her şey hala çok canlı bende. Sesin, gülüşün, bana söylediğin güzel sözler… </p>
+                <p>Sema o kadar mutluyum ki bu satırları sana yazmak için sabaha kadar seninle olan hatıralarımı zihnimde canlandırdım, sana bir kez daha aşık oldum.</p>
+                <p>İyiki o ekim gecesi beni aramışsın , iyiki o sesini duymuşum yoksa ben ne olurdum ,sensizlik beni yer bitirirdi.</p>
+                <p>Ahhh sema seni gördüğüm o ilk an o ilk an , gözümü ne zaman kapatsam o andayım , bu satırları yazarken bile mutluluktan boğazım düğümleniyor. Önünde seni gördüğüm binaya bile aşık olmuşum</p>
+                <p>Kar tipisinde önümü görmezken sıcaklığını takip etmem ben soğuğa bile aşık olmuşum, seni gördüğüm ilk an elimi tuttun ya , beni gene büyük bir yükten kurtardın sevgilim.</p>
+                <p>Bu satırları yazmak yerine yanında olsaydım ağlayarak sana sarılırdım sevgilim.Gözlerim doldu, boğazım düğümleniyor, yutkunamıyorum.</p>
+                <p>Ben başta seni sadece çok sevdiğimi sanıyordum… Zamanla anladım ki bu sadece aşk değilmiş.Ben sana aşığım sanıyordum, meğer sevdalanmışım… Kalbimin derinlerine kök salmış, her nefesimde sen varsın.Sesini duymadığımda içim eksik, gülüşünü görmediğimde günüm yarım kalıyor.
+Sen hayatımın en güzel alışkanlığı oldun.
+Varlığın içimi ısıtan bir bahar gibi…</p>
+                <p>Senin yanındayken her anın değerini biliyorum , yüzünü hep çocuk gibi güldürmek istiyorum bazen seni üzüyorsam beni affet sevgilim.</p>
+                <p>İyi ki doğmuşsun , iyiki varsın , iyi ki benimsin. Benim güzeller güzeli tatlış bıdığım </p>
+                <p>Herzaman senin yanında olacağım ve seni hep seveceğim.</p>
+        
+                
+                
+                <div class="letter-signature">
+                     Seni her şeyden çok seviyorum...<br>
+                    bir idealistin , mühendisin ve sana çocuksu bakışlarla aşık olan Sefer'inin ağzından dökülen sözler❤️
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Yüzen kalpler
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            const hearts = ['💕', '💖', '💝', '🌹', '❤️', '💗'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }, 800);
+        }
+
+        // Sparkle efekti
+        function addSparkles(event) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            
+            for (let i = 0; i < 6; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.innerHTML = '✨';
+                sparkle.style.position = 'absolute';
+                sparkle.style.left = (event.clientX - rect.left + Math.random() * 40 - 20) + 'px';
+                sparkle.style.top = (event.clientY - rect.top + Math.random() * 40 - 20) + 'px';
+                sparkle.style.color = '#ffd700';
+                sparkle.style.fontSize = '20px';
+                sparkle.style.zIndex = '1000';
+                sparkle.style.animationDelay = (Math.random() * 0.5) + 's';
+                
+                event.currentTarget.appendChild(sparkle);
+                
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 2000);
+            }
+        }
+
+        // Mektup kontrolü
+        function openLetter() {
+            const modal = document.getElementById('letterModal');
+            const content = document.getElementById('letterContent');
+            
+            modal.style.display = 'flex';
+            
+            setTimeout(() => {
+                content.classList.add('show');
+            }, 100);
+            
+            // Mektup açılırken kalp efekti
+            createLetterHearts();
+        }
+
+        function closeLetter(event) {
+            if (event && event.target !== event.currentTarget && !event.target.classList.contains('close-letter')) {
+                return;
+            }
+            
+            const modal = document.getElementById('letterModal');
+            const content = document.getElementById('letterContent');
+            
+            content.classList.remove('show');
+            
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 500);
+        }
+
+        function createLetterHearts() {
+            const letterButton = document.querySelector('.letter-button');
+            const hearts = ['💕', '💖', '💝', '🌹', '❤️', '💗'];
+            
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.left = '40px';
+                    heart.style.bottom = '40px';
+                    heart.style.fontSize = '20px';
+                    heart.style.color = '#d63384';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '999';
+                    heart.style.animation = `letterHeartFloat 2s ease-out forwards`;
+                    
+                    const angle = (360 / 8) * i;
+                    const distance = 100;
+                    heart.style.setProperty('--angle', angle + 'deg');
+                    heart.style.setProperty('--distance', distance + 'px');
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+
+        // YouTube müzik kontrolü
+        let musicVisible = false;
+        function toggleMusic() {
+            const player = document.getElementById('youtubePlayer');
+            const btn = document.querySelector('.music-btn');
+            
+            if (musicVisible) {
+                player.classList.remove('show');
+                btn.innerHTML = '🎵 Müzik';
+                musicVisible = false;
+            } else {
+                player.classList.add('show');
+                btn.innerHTML = '🔇 Gizle';
+                musicVisible = true;
+                
+                // Müzik açılırken kalp efekti
+                createMusicHearts();
+            }
+        }
+
+        // Müzik kalp efekti
+        function createMusicHearts() {
+            const musicBtn = document.querySelector('.music-player');
+            const hearts = ['🎵', '🎶', '💕', '❤️', '🎼'];
+            
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.position = 'fixed';
+                    heart.style.right = '60px';
+                    heart.style.bottom = '60px';
+                    heart.style.fontSize = '20px';
+                    heart.style.color = '#fd79a8';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '999';
+                    heart.style.animation = `musicHeartFloat 3s ease-out forwards`;
+                    
+                    const angle = (360 / 8) * i;
+                    heart.style.setProperty('--angle', angle + 'deg');
+                    heart.style.setProperty('--distance', '80px');
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }, i * 100);
+            }
+        }
+
+        // CSS animasyonları için stil ekle
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes letterHeartFloat {
+                0% {
+                    transform: translate(0, 0) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(
+                        calc(cos(var(--angle)) * var(--distance)), 
+                        calc(sin(var(--angle)) * var(--distance) * -1)
+                    ) scale(1);
+                    opacity: 0;
+                }
+            }
+
+            @keyframes musicHeartFloat {
+                0% {
+                    transform: translate(0, 0) scale(0);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translate(
+                        calc(cos(var(--angle)) * var(--distance)), 
+                        calc(sin(var(--angle)) * var(--distance) * -1)
+                    ) scale(1);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Sayfa yüklendiğinde kalpleri başlat
+        document.addEventListener('DOMContentLoaded', function() {
+            createFloatingHearts();
+        });
+
+        // Scroll animasyonları
+        window.addEventListener('scroll', () => {
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const windowHeight = window.innerHeight;
+            
+            timelineItems.forEach(item => {
+                const itemTop = item.getBoundingClientRect().top;
+                
+                if (itemTop < windowHeight - 100) {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        // Timeline itemlarına başlangıç stilleri
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            item.style.opacity = '0';
+            item.style.transform = 'translateY(50px)';
+            item.style.transition = 'all 0.6s ease';
+        });
+    </script>
+</body>
+</html>
